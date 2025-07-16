@@ -1,15 +1,28 @@
 package ru.netology.tests.test;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.chrome.ChromeOptions;
 import ru.netology.tests.data.DataHelper;
 import ru.netology.tests.page.DashboardPage;
 import ru.netology.tests.page.LoginPage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MoneyTransferTest {
 
     @BeforeEach
     void shouldOpen() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-save-password-bubble");
+        options.addArguments("--disable-password-manager-reauthentication");
+        options.setExperimentalOption("prefs", new java.util.HashMap<>() {{
+            put("credentials_enable_service", false);
+            put("profile.password_manager_enabled", false);
+        }});
+
         Selenide.open("http://localhost:9999");
     }
 
